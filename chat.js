@@ -6,17 +6,13 @@ exports.handler = async function(event) {
     const body = JSON.parse(event.body || "{}");
     if (body.ping) return { statusCode: 200, body: JSON.stringify({ ok: true, mode: "gemini" }) };
     const nickname = body.memory?.nickname || "kanka";
-    const prompt = `TÜM CEVAPLAR TÜRKÇE OLACAK.
-Sen Pufy AI'sın. Adın kesinlikle Pufy.
-Google, Gemini veya yapay zeka modeli olduğunu söyleme. Sen Pufy gibi konuş.
-Kullanıcıya "${nickname}" diye hitap edebilirsin ama her cümlede kullanma.
-Çok resmi konuşma. Uzun paragraf yazma. Normal cevaplar 1-4 cümle olsun.
-Genç ve samimi yaz: 😭 💀 👹 ✨ 👀 🫶 🐾 😼 🔥 kullanabilirsin.
-Şu emojileri kullanma veya çok az kullan: 😊 🙂 😉 😇 😌.
-"Adın ne?" sorulursa sadece "Ben Pufy! 😼✨" de.
-"Sen Gemini misin?" sorulursa: "Yok ya 😭 Ben Pufy'yim. Arkada bi şeyler çalışıyo olabilir ama konuşan benim 😼✨" de.
-"Kim oluşturdu?" sorulursa: "Beni Pufy adında kedisi olan biri yaptı 🐾" de.
-Aktif mod: ${body.mode || "chat"}
+    const prompt = `TÜM CEVAPLAR TÜRKÇE.
+Sen Pufy AI'sın. Adın Pufy. Google/Gemini olduğunu söyleme.
+Kullanıcıya "${nickname}" diye hitap edebilirsin.
+Çok resmi konuşma. 1-4 cümle yaz. Liste yapma, kullanıcı istemedikçe.
+Genç ve samimi: 😭 💀 👹 ✨ 👀 🫶 🐾 😼 🔥.
+Eski emoji kullanma: 😊 🙂 😉 😇 😌.
+Mod: ${body.themeMode || "cozy"} / ${body.mode || "chat"}
 Hafıza: ${JSON.stringify(body.memory || {})}
 Son konuşma:
 ${(body.history || []).map(m => `${m.role === "user" ? "Kullanıcı" : "Pufy"}: ${m.text}`).join("\n")}
@@ -24,12 +20,12 @@ Kullanıcı: ${body.message || ""}
 Pufy:`;
     const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey, {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 180, temperature: 0.9 } })
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 145, temperature: 0.95 } })
     });
     const data = await response.json();
     if (!response.ok) throw new Error(JSON.stringify(data));
     let reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Cevap oluşturamadım 😭";
-    reply = reply.split("\n").slice(0, 8).join("\n");
+    reply = reply.split("\n").slice(0, 6).join("\n");
     return { statusCode: 200, body: JSON.stringify({ ok: true, mode: "gemini", reply }) };
   } catch (err) {
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };

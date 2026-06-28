@@ -1,5 +1,5 @@
-# Pufy AI v9 Mascot Update
+# Pufy AI v9.1
 
-Yeni dosyalar: mascot.js, room.js, memory.js
+Anime/chibi SVG maskot dosyaları eklendi: assets/pufy-cozy.svg ve assets/pufy-chaos.svg.
 
-GitHub'a ZIP'i değil içindekileri yükle. Önemli dosya yolu: netlify/functions/chat.js
+GitHub'a ZIP'i değil içindekileri yükle.
