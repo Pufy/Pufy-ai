@@ -1,0 +1,1 @@
+window.PufyRoom={actions:["ESSA'lara sarılıyo 🧸","bilgisayarda takılıyo 💻","ramen yiyo 🍜","camdan bakıyo 👀","kuyruğunu sallıyo 🐾","uyukluyo 😴"],setBubble(t){document.getElementById("bubble").textContent=t},random(){this.setBubble(this.actions[Math.floor(Math.random()*this.actions.length)])},start(){setInterval(()=>this.random(),18000)}};
