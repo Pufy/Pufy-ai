@@ -1,5 +1,2 @@
-# Pufy AI v9.1
-
-Anime/chibi SVG maskot dosyaları eklendi: assets/pufy-cozy.svg ve assets/pufy-chaos.svg.
-
-GitHub'a ZIP'i değil içindekileri yükle.
+# Pufy AI v9 Real Anime
+Gerçek PNG anime sprite maskotlu sürüm. ZIP değil içindekileri yükle. assets klasörü ve netlify/functions/chat.js kesin gitmeli.
